@@ -1,5 +1,8 @@
 local ESX = exports['es_extended']:getSharedObject()
 
+SetNuiFocus(false, false)
+SetNuiFocusKeepInput(false)
+
 local function Translate(key)
     if not Locales then
         return key
@@ -51,6 +54,11 @@ RegisterCommand(Config.Command, function()
 end, false)
 
 RegisterNUICallback('close', function(_, cb)
+    CloseGuidebook()
+    cb(true)
+end)
+
+RegisterNUICallback('ready', function(_, cb)
     CloseGuidebook()
     cb(true)
 end)
@@ -109,5 +117,8 @@ AddEventHandler('onResourceStart', function(resourceName)
         return
     end
 
-    CloseGuidebook()
+    CreateThread(function()
+        Wait(500)
+        CloseGuidebook()
+    end)
 end)

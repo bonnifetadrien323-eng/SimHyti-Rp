@@ -43,6 +43,7 @@ let strings = {};
 document.addEventListener('DOMContentLoaded', () => {
     overlay.hidden = true;
     adminPanel.hidden = true;
+    postNui('ready');
 });
 
 function postNui(action, data = {}) {
