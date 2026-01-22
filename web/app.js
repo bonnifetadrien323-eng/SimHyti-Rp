@@ -251,6 +251,10 @@ window.addEventListener('message', (event) => {
             renderAdmin();
         }
     }
+    if (event.data.action === 'close') {
+        overlay.hidden = true;
+        adminPanel.hidden = true;
+    }
 });
 
 closeButton.addEventListener('click', () => {

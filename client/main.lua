@@ -29,6 +29,11 @@ local function OpenGuidebook(payload)
     })
 end
 
+local function CloseGuidebook()
+    SetNuiFocus(false, false)
+    SendNUIMessage({ action = 'close' })
+end
+
 RegisterCommand(Config.Command, function()
     ESX.TriggerServerCallback('simhyti:openGuidebook', function(response)
         if not response then
@@ -45,7 +50,7 @@ RegisterCommand(Config.Command, function()
 end, false)
 
 RegisterNUICallback('close', function(_, cb)
-    SetNuiFocus(false, false)
+    CloseGuidebook()
     cb(true)
 end)
 
@@ -88,4 +93,12 @@ end)
 
 CreateThread(function()
     DebugLog(('Command /%s ready.'):format(Config.Command))
+end)
+
+AddEventHandler('onResourceStop', function(resourceName)
+    if resourceName ~= GetCurrentResourceName() then
+        return
+    end
+
+    CloseGuidebook()
 end)
