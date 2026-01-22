@@ -53,6 +53,10 @@ RegisterCommand(Config.Command, function()
     end)
 end, false)
 
+RegisterCommand('guidebookclose', function()
+    CloseGuidebook()
+end, false)
+
 RegisterNUICallback('close', function(_, cb)
     CloseGuidebook()
     cb(true)

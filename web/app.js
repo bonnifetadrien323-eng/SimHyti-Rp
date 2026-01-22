@@ -269,6 +269,22 @@ closeButton.addEventListener('click', () => {
     postNui('close');
 });
 
+overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) {
+        overlay.hidden = true;
+        adminPanel.hidden = true;
+        postNui('close');
+    }
+});
+
+window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        overlay.hidden = true;
+        adminPanel.hidden = true;
+        postNui('close');
+    }
+});
+
 adminToggle.addEventListener('click', () => {
     adminPanel.hidden = !adminPanel.hidden;
 });
