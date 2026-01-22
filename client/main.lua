@@ -17,6 +17,7 @@ end
 
 local function OpenGuidebook(payload)
     SetNuiFocus(true, true)
+    SetNuiFocusKeepInput(false)
     SendNUIMessage({
         action = 'open',
         data = payload,
@@ -96,6 +97,14 @@ CreateThread(function()
 end)
 
 AddEventHandler('onResourceStop', function(resourceName)
+    if resourceName ~= GetCurrentResourceName() then
+        return
+    end
+
+    CloseGuidebook()
+end)
+
+AddEventHandler('onResourceStart', function(resourceName)
     if resourceName ~= GetCurrentResourceName() then
         return
     end

@@ -40,6 +40,11 @@ const pointZ = document.getElementById('pointZ');
 let guidebookData = { categories: [], pages: [], points: [] };
 let strings = {};
 
+document.addEventListener('DOMContentLoaded', () => {
+    overlay.hidden = true;
+    adminPanel.hidden = true;
+});
+
 function postNui(action, data = {}) {
     return fetch(`https://${GetParentResourceName()}/${action}`, {
         method: 'POST',
