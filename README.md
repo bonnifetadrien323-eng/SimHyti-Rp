@@ -1,23 +1,23 @@
 # SimHyti-Rp
 
-Petit exemple de ressource FiveM pour ESX (Legacy) afin de démarrer rapidement.
+Ressource FiveM ESX qui ajoute un guide en jeu (type guidebook) pour votre serveur SimHyti-Rp.
 
 ## Installation
 
 1. Copier le dossier dans vos `resources`.
 2. Ajouter `ensure SimHyti-Rp` dans votre `server.cfg`.
-3. Vérifier que `es_extended` et `oxmysql` sont bien installés.
+3. Vérifier que `es_extended` est bien installé.
 
 ## Utilisation
 
-* Commande en jeu : `/simhyti`
-* Le joueur reçoit un item configuré dans `config.lua`.
+* Commande en jeu : `/guidebook`
+* Le menu affiche des catégories puis des articles.
 
 ## Configuration
 
-Modifier `config.lua` selon vos besoins :
+Modifier `config.lua` pour adapter le contenu du guide :
 
 * `Config.Command` : nom de la commande.
-* `Config.RewardItem` / `Config.RewardAmount` : item donné.
-* `Config.Notification` : message envoyé au joueur.
-* `Config.Debug` : logs serveur/client.
+* `Config.Locale` : langue (`fr` ou `en`).
+* `Config.Guidebook` : catégories et articles affichés.
+* `Config.Debug` : logs client.
