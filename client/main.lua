@@ -9,81 +9,83 @@ local function Translate(key)
     return locale[key] or key
 end
 
-local function OpenEntryMenu(category)
-    local elements = {}
-
-    for _, entry in ipairs(category.entries or {}) do
-        elements[#elements + 1] = {
-            label = entry.label,
-            value = entry
-        }
+local function DebugLog(message)
+    if Config.Debug then
+        print(('[SimHyti] %s'):format(message))
     end
-
-    if #elements == 0 then
-        elements[1] = {
-            label = Translate('no_entries'),
-            value = nil
-        }
-    end
-
-    ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'guidebook_entries', {
-        title = ('%s - %s'):format(Translate('menu_entries'), category.label),
-        align = 'top-left',
-        elements = elements
-    }, function(data, menu)
-        local entry = data.current.value
-
-        if entry then
-            ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'guidebook_entry', {
-                title = entry.label,
-                align = 'top-left',
-                elements = {
-                    { label = entry.content, value = nil },
-                    { label = Translate('back'), value = 'back' }
-                }
-            }, function(entryData, entryMenu)
-                if entryData.current.value == 'back' then
-                    entryMenu.close()
-                end
-            end, function(_, entryMenu)
-                entryMenu.close()
-            end)
-        end
-    end, function(_, menu)
-        menu.close()
-    end)
 end
 
-local function OpenGuidebook(categories)
-    local elements = {}
-
-    for _, category in ipairs(categories) do
-        elements[#elements + 1] = {
-            label = category.label,
-            value = category
+local function OpenGuidebook(payload)
+    SetNuiFocus(true, true)
+    SendNUIMessage({
+        action = 'open',
+        data = payload,
+        strings = {
+            title = Translate('menu_title'),
+            categories = Translate('menu_categories'),
+            pages = Translate('menu_entries'),
+            admin = Translate('admin_panel')
         }
-    end
-
-    ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'guidebook_categories', {
-        title = Translate('menu_title'),
-        align = 'top-left',
-        elements = elements
-    }, function(data, menu)
-        menu.close()
-        OpenEntryMenu(data.current.value)
-    end, function(_, menu)
-        menu.close()
-    end)
+    })
 end
 
 RegisterCommand(Config.Command, function()
-    ESX.TriggerServerCallback('simhyti:getGuidebook', function(categories)
-        OpenGuidebook(categories)
+    ESX.TriggerServerCallback('simhyti:openGuidebook', function(response)
+        if not response then
+            return
+        end
+
+        if not response.allowed then
+            ESX.ShowNotification(Translate('need_item'))
+            return
+        end
+
+        OpenGuidebook(response)
     end)
 end, false)
 
-if Config.Debug then
-    CreateThread(function()
-        print(('[SimHyti] Command /%s ready.'):format(Config.Command))
+RegisterNUICallback('close', function(_, cb)
+    SetNuiFocus(false, false)
+    cb(true)
+end)
+
+RegisterNUICallback('setWaypoint', function(data, cb)
+    if data and data.x and data.y then
+        SetNewWaypoint(data.x, data.y)
+    end
+    cb(true)
+end)
+
+RegisterNUICallback('refresh', function(_, cb)
+    ESX.TriggerServerCallback('simhyti:getGuidebook', function(payload)
+        cb(payload)
     end)
-end
+end)
+
+RegisterNUICallback('admin:saveCategory', function(data, cb)
+    ESX.TriggerServerCallback('simhyti:adminSaveCategory', function(payload)
+        cb(payload)
+    end, data)
+end)
+
+RegisterNUICallback('admin:savePage', function(data, cb)
+    ESX.TriggerServerCallback('simhyti:adminSavePage', function(payload)
+        cb(payload)
+    end, data)
+end)
+
+RegisterNUICallback('admin:savePoint', function(data, cb)
+    ESX.TriggerServerCallback('simhyti:adminSavePoint', function(payload)
+        cb(payload)
+    end, data)
+end)
+
+RegisterNUICallback('admin:deleteItem', function(data, cb)
+    ESX.TriggerServerCallback('simhyti:adminDeleteItem', function(payload)
+        cb(payload)
+    end, data)
+end)
+
+CreateThread(function()
+    DebugLog(('Command /%s ready.'):format(Config.Command))
+end)

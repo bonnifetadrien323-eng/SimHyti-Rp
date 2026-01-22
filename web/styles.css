@@ -1,0 +1,272 @@
+:root {
+    color-scheme: dark;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: transparent;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(3, 3, 7, 0.8);
+    backdrop-filter: blur(6px);
+}
+
+.guidebook {
+    width: min(1200px, 95vw);
+    height: min(720px, 90vh);
+    background: linear-gradient(135deg, rgba(20, 20, 32, 0.98), rgba(17, 17, 28, 0.98));
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
+}
+
+.sidebar {
+    background: rgba(230, 230, 240, 0.9);
+    color: #13131b;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 12px;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.sidebar-section h2 {
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+}
+
+#categoryList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#categoryList li {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 10px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#categoryList li.active {
+    background: #2f2f4f;
+    color: #f6f6ff;
+}
+
+.admin-button {
+    margin-top: auto;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: none;
+    background: #2f2f4f;
+    color: #f6f6ff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.content {
+    padding: 30px 40px;
+    color: #f5f5ff;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: hidden;
+}
+
+.content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.content-header h2 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.content-header p {
+    margin: 6px 0 0;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.close {
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.page {
+    overflow-y: auto;
+    padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.page p {
+    line-height: 1.6;
+    margin: 0;
+}
+
+.points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.point {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 8px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.shortcut-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.shortcut-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.shortcut-key {
+    font-weight: 700;
+    font-size: 18px;
+    background: #ff6bd6;
+    color: #1a1a24;
+    padding: 6px 10px;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+.admin-panel {
+    position: absolute;
+    inset: 6% 6%;
+    background: rgba(18, 18, 28, 0.96);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 24px;
+    color: #f5f5ff;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    overflow: auto;
+}
+
+.admin-column {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 16px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.admin-column form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-column input,
+.admin-column textarea,
+.admin-column select {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 8px 10px;
+    color: #fff;
+}
+
+.admin-column button {
+    background: #ff6bd6;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.admin-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 8px 10px;
+    border-radius: 10px;
+}
+
+.admin-item button {
+    background: transparent;
+    border: none;
+    color: #ff8a8a;
+    cursor: pointer;
+}

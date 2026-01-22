@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SimHyti Guidebook</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="overlay" id="overlay" hidden>
+        <div class="guidebook">
+            <aside class="sidebar">
+                <div class="logo">
+                    <img id="logo" alt="SimHyti-Rp" />
+                    <h1 id="title">Guidebook</h1>
+                </div>
+                <div class="sidebar-section">
+                    <h2 id="categoriesLabel">Catégories</h2>
+                    <ul id="categoryList"></ul>
+                </div>
+                <button class="admin-button" id="adminToggle" hidden>Admin</button>
+            </aside>
+            <main class="content">
+                <header class="content-header">
+                    <div>
+                        <h2 id="pageTitle">Bienvenue</h2>
+                        <p id="pageSubtitle"></p>
+                    </div>
+                    <button class="close" id="close">✕</button>
+                </header>
+                <section class="page" id="pageContent"></section>
+            </main>
+        </div>
+        <div class="admin-panel" id="adminPanel" hidden>
+            <div class="admin-header">
+                <h2 id="adminTitle">Administration</h2>
+                <button class="close" id="adminClose">✕</button>
+            </div>
+            <div class="admin-body">
+                <div class="admin-column">
+                    <h3>Catégories</h3>
+                    <div id="adminCategories"></div>
+                    <form id="categoryForm">
+                        <input type="hidden" id="categoryId" />
+                        <label>Nom</label>
+                        <input type="text" id="categoryLabel" required />
+                        <label>Ordre</label>
+                        <input type="number" id="categorySort" value="0" />
+                        <button type="submit">Enregistrer</button>
+                    </form>
+                </div>
+                <div class="admin-column">
+                    <h3>Pages</h3>
+                    <div id="adminPages"></div>
+                    <form id="pageForm">
+                        <input type="hidden" id="pageId" />
+                        <label>Catégorie</label>
+                        <select id="pageCategory"></select>
+                        <label>Titre</label>
+                        <input type="text" id="pageTitleInput" required />
+                        <label>Type</label>
+                        <select id="pageType">
+                            <option value="text">Texte</option>
+                            <option value="shortcuts">Raccourcis</option>
+                        </select>
+                        <label>Ordre</label>
+                        <input type="number" id="pageSort" value="0" />
+                        <label>Actif</label>
+                        <select id="pageEnabled">
+                            <option value="1">Oui</option>
+                            <option value="0">Non</option>
+                        </select>
+                        <label>Contenu (texte ou JSON raccourcis)</label>
+                        <textarea id="pageContentInput" rows="6"></textarea>
+                        <button type="submit">Enregistrer</button>
+                    </form>
+                </div>
+                <div class="admin-column">
+                    <h3>Points GPS</h3>
+                    <div id="adminPoints"></div>
+                    <form id="pointForm">
+                        <input type="hidden" id="pointId" />
+                        <label>Page</label>
+                        <select id="pointPage"></select>
+                        <label>Label</label>
+                        <input type="text" id="pointLabel" required />
+                        <label>X</label>
+                        <input type="number" step="0.01" id="pointX" required />
+                        <label>Y</label>
+                        <input type="number" step="0.01" id="pointY" required />
+                        <label>Z</label>
+                        <input type="number" step="0.01" id="pointZ" required />
+                        <button type="submit">Enregistrer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

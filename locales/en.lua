@@ -5,5 +5,7 @@ Locales['en'] = {
     ['menu_entries'] = 'Entries',
     ['menu_entry'] = 'Entry',
     ['no_entries'] = 'No entries available.',
-    ['back'] = 'Back'
+    ['back'] = 'Back',
+    ['need_item'] = 'You need the guide tablet to open the guide.',
+    ['admin_panel'] = 'Administration'
 }

@@ -12,12 +12,21 @@ shared_scripts {
     'config.lua'
 }
 
+ui_page 'web/index.html'
+
 client_scripts {
     'client/main.lua'
 }
 
 server_scripts {
+    '@oxmysql/lib/MySQL.lua',
     'server/main.lua'
+}
+
+files {
+    'web/index.html',
+    'web/styles.css',
+    'web/app.js'
 }
 
 lua54 'yes'

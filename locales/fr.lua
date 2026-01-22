@@ -5,5 +5,7 @@ Locales['fr'] = {
     ['menu_entries'] = 'Articles',
     ['menu_entry'] = 'Article',
     ['no_entries'] = 'Aucun article disponible.',
-    ['back'] = 'Retour'
+    ['back'] = 'Retour',
+    ['need_item'] = 'Vous devez avoir la tablette guide pour ouvrir le guide.',
+    ['admin_panel'] = 'Administration'
 }
