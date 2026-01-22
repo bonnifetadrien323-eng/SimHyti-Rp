@@ -1,6 +1,10 @@
 local ESX = exports['es_extended']:getSharedObject()
 
 local function Translate(key)
+    if not Locales then
+        return key
+    end
+
     local locale = Locales[Config.Locale] or Locales['en'] or {}
     return locale[key] or key
 end

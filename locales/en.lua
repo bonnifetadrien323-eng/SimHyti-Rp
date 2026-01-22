@@ -1,3 +1,4 @@
+Locales = Locales or {}
 Locales['en'] = {
     ['menu_title'] = 'SimHyti-Rp Guide',
     ['menu_categories'] = 'Categories',
