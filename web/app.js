@@ -257,7 +257,7 @@ window.addEventListener('message', (event) => {
             renderAdmin();
         }
     }
-    if (event.data.action === 'close') {
+    if (event.data.action === 'close' || event.data.action === 'reset') {
         overlay.hidden = true;
         adminPanel.hidden = true;
     }

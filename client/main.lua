@@ -122,7 +122,12 @@ AddEventHandler('onResourceStart', function(resourceName)
     end
 
     CreateThread(function()
-        Wait(500)
-        CloseGuidebook()
+        for _ = 1, 12 do
+            SetNuiFocus(false, false)
+            SetNuiFocusKeepInput(false)
+            SendNUIMessage({ action = 'close' })
+            SendNUIMessage({ action = 'reset' })
+            Wait(250)
+        end
     end)
 end)
