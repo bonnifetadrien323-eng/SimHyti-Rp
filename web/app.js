@@ -290,7 +290,9 @@ adminToggle.addEventListener('click', () => {
 });
 
 adminClose.addEventListener('click', () => {
+    overlay.hidden = true;
     adminPanel.hidden = true;
+    postNui('close');
 });
 
 categoryForm.addEventListener('submit', (event) => {
