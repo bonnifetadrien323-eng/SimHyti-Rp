@@ -42,14 +42,15 @@ let strings = {};
 let isOpen = false;
 
 document.addEventListener('DOMContentLoaded', () => {
-    overlay.hidden = true;
+    overlay.hidden = false;
+    overlay.dataset.open = 'false';
     adminPanel.hidden = true;
     postNui('ready');
 });
 
 setInterval(() => {
     if (!isOpen) {
-        overlay.hidden = true;
+        overlay.dataset.open = 'false';
         adminPanel.hidden = true;
     }
 }, 500);
@@ -258,7 +259,7 @@ window.addEventListener('message', (event) => {
         categoriesLabel.textContent = strings.categories || 'Catégories';
         adminTitle.textContent = strings.admin || 'Administration';
         logo.src = event.data.data.logoUrl || '';
-        overlay.hidden = false;
+        overlay.dataset.open = 'true';
         adminToggle.hidden = !event.data.data.isAdmin;
         renderCategories();
         renderFirstPage(event.data.data.categories[0]?.id);
@@ -268,14 +269,14 @@ window.addEventListener('message', (event) => {
     }
     if (event.data.action === 'close' || event.data.action === 'reset') {
         isOpen = false;
-        overlay.hidden = true;
+        overlay.dataset.open = 'false';
         adminPanel.hidden = true;
     }
 });
 
 closeButton.addEventListener('click', () => {
     isOpen = false;
-    overlay.hidden = true;
+    overlay.dataset.open = 'false';
     adminPanel.hidden = true;
     postNui('close');
 });
@@ -283,7 +284,7 @@ closeButton.addEventListener('click', () => {
 overlay.addEventListener('click', (event) => {
     if (event.target === overlay) {
         isOpen = false;
-        overlay.hidden = true;
+        overlay.dataset.open = 'false';
         adminPanel.hidden = true;
         postNui('close');
     }
@@ -292,7 +293,7 @@ overlay.addEventListener('click', (event) => {
 window.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
         isOpen = false;
-        overlay.hidden = true;
+        overlay.dataset.open = 'false';
         adminPanel.hidden = true;
         postNui('close');
     }
@@ -304,7 +305,7 @@ adminToggle.addEventListener('click', () => {
 
 adminClose.addEventListener('click', () => {
     isOpen = false;
-    overlay.hidden = true;
+    overlay.dataset.open = 'false';
     adminPanel.hidden = true;
     postNui('close');
 });

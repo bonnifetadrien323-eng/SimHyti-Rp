@@ -15,11 +15,15 @@ body {
 .overlay {
     position: fixed;
     inset: 0;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     background: rgba(3, 3, 7, 0.8);
     backdrop-filter: blur(6px);
+}
+
+.overlay[data-open='true'] {
+    display: flex;
 }
 
 .guidebook {
