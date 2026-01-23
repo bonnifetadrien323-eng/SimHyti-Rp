@@ -39,27 +39,14 @@ const pointZ = document.getElementById('pointZ');
 
 let guidebookData = { categories: [], pages: [], points: [] };
 let strings = {};
-let isOpen = false;
 
 function setOpenState(open) {
-    isOpen = open;
     overlay.dataset.open = open ? 'true' : 'false';
     overlay.style.display = open ? 'flex' : 'none';
     if (!open) {
         adminPanel.hidden = true;
     }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    setOpenState(false);
-    postNui('ready');
-});
-
-setInterval(() => {
-    if (!isOpen) {
-        setOpenState(false);
-    }
-}, 500);
 
 function postNui(action, data = {}) {
     return fetch(`https://${GetParentResourceName()}/${action}`, {
@@ -260,11 +247,11 @@ window.addEventListener('message', (event) => {
     if (event.data.action === 'open') {
         guidebookData = event.data.data;
         strings = event.data.strings || {};
-        setOpenState(true);
         title.textContent = strings.title || 'Guidebook';
         categoriesLabel.textContent = strings.categories || 'Catégories';
         adminTitle.textContent = strings.admin || 'Administration';
         logo.src = event.data.data.logoUrl || '';
+        setOpenState(true);
         adminToggle.hidden = !event.data.data.isAdmin;
         renderCategories();
         renderFirstPage(event.data.data.categories[0]?.id);
@@ -358,3 +345,5 @@ pointForm.addEventListener('submit', (event) => {
         refreshData();
     });
 });
+
+setOpenState(false);

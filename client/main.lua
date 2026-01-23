@@ -1,8 +1,5 @@
 local ESX = exports['es_extended']:getSharedObject()
 
-SetNuiFocus(false, false)
-SetNuiFocusKeepInput(false)
-
 local function Translate(key)
     if not Locales then
         return key
@@ -12,15 +9,8 @@ local function Translate(key)
     return locale[key] or key
 end
 
-local function DebugLog(message)
-    if Config.Debug then
-        print(('[SimHyti] %s'):format(message))
-    end
-end
-
 local function OpenGuidebook(payload)
     SetNuiFocus(true, true)
-    SetNuiFocusKeepInput(false)
     SendNUIMessage({
         action = 'open',
         data = payload,
@@ -62,11 +52,6 @@ RegisterNUICallback('close', function(_, cb)
     cb(true)
 end)
 
-RegisterNUICallback('ready', function(_, cb)
-    CloseGuidebook()
-    cb(true)
-end)
-
 RegisterNUICallback('setWaypoint', function(data, cb)
     if data and data.x and data.y then
         SetNewWaypoint(data.x, data.y)
@@ -104,30 +89,10 @@ RegisterNUICallback('admin:deleteItem', function(data, cb)
     end, data)
 end)
 
-CreateThread(function()
-    DebugLog(('Command /%s ready.'):format(Config.Command))
-end)
-
 AddEventHandler('onResourceStop', function(resourceName)
     if resourceName ~= GetCurrentResourceName() then
         return
     end
 
     CloseGuidebook()
-end)
-
-AddEventHandler('onResourceStart', function(resourceName)
-    if resourceName ~= GetCurrentResourceName() then
-        return
-    end
-
-    CreateThread(function()
-        for _ = 1, 12 do
-            SetNuiFocus(false, false)
-            SetNuiFocusKeepInput(false)
-            SendNUIMessage({ action = 'close' })
-            SendNUIMessage({ action = 'reset' })
-            Wait(250)
-        end
-    end)
 end)
