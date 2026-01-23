@@ -41,17 +41,23 @@ let guidebookData = { categories: [], pages: [], points: [] };
 let strings = {};
 let isOpen = false;
 
+function setOpenState(open) {
+    isOpen = open;
+    overlay.dataset.open = open ? 'true' : 'false';
+    overlay.style.display = open ? 'flex' : 'none';
+    if (!open) {
+        adminPanel.hidden = true;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    overlay.hidden = false;
-    overlay.dataset.open = 'false';
-    adminPanel.hidden = true;
+    setOpenState(false);
     postNui('ready');
 });
 
 setInterval(() => {
     if (!isOpen) {
-        overlay.dataset.open = 'false';
-        adminPanel.hidden = true;
+        setOpenState(false);
     }
 }, 500);
 
@@ -254,12 +260,11 @@ window.addEventListener('message', (event) => {
     if (event.data.action === 'open') {
         guidebookData = event.data.data;
         strings = event.data.strings || {};
-        isOpen = true;
+        setOpenState(true);
         title.textContent = strings.title || 'Guidebook';
         categoriesLabel.textContent = strings.categories || 'Catégories';
         adminTitle.textContent = strings.admin || 'Administration';
         logo.src = event.data.data.logoUrl || '';
-        overlay.dataset.open = 'true';
         adminToggle.hidden = !event.data.data.isAdmin;
         renderCategories();
         renderFirstPage(event.data.data.categories[0]?.id);
@@ -268,33 +273,25 @@ window.addEventListener('message', (event) => {
         }
     }
     if (event.data.action === 'close' || event.data.action === 'reset') {
-        isOpen = false;
-        overlay.dataset.open = 'false';
-        adminPanel.hidden = true;
+        setOpenState(false);
     }
 });
 
 closeButton.addEventListener('click', () => {
-    isOpen = false;
-    overlay.dataset.open = 'false';
-    adminPanel.hidden = true;
+    setOpenState(false);
     postNui('close');
 });
 
 overlay.addEventListener('click', (event) => {
     if (event.target === overlay) {
-        isOpen = false;
-        overlay.dataset.open = 'false';
-        adminPanel.hidden = true;
+        setOpenState(false);
         postNui('close');
     }
 });
 
 window.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
-        isOpen = false;
-        overlay.dataset.open = 'false';
-        adminPanel.hidden = true;
+        setOpenState(false);
         postNui('close');
     }
 });
@@ -304,9 +301,7 @@ adminToggle.addEventListener('click', () => {
 });
 
 adminClose.addEventListener('click', () => {
-    isOpen = false;
-    overlay.dataset.open = 'false';
-    adminPanel.hidden = true;
+    setOpenState(false);
     postNui('close');
 });
 
